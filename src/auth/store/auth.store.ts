@@ -1,8 +1,9 @@
 import { create, StateCreator } from "zustand";
 import { devtools, persist } from "zustand/middleware";
-import { User } from "../interfaces/User.interface";
+
 import { Status } from "../interfaces/status.interface";
 import { AuthService } from "../services/auth.service";
+import { User } from "../interfaces";
 
 export interface AuthState {
   status: Status;
@@ -29,7 +30,7 @@ const AuthStore: StateCreator<AuthState> = (set) => ({
     }
   },
 
-  //? Para reovar el token
+  //? Para renvar el token
   checkAuthStatus: async () => {
     try {
       const { token, ...user } = await AuthService.checkAuthStatus();

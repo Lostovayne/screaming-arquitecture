@@ -1,9 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { RegisterSchema, RegisterSchemaType } from "../schemas/register.schema";
-import { AuthService } from "../services/auth.service";
+import { useAuthStore } from "../store/auth.store";
 
 export const useRegister = () => {
+  const RegisterUser = useAuthStore((state) => state.registerUser);
   const form = useForm<RegisterSchemaType>({
     resolver: zodResolver(RegisterSchema),
 
@@ -15,8 +16,7 @@ export const useRegister = () => {
   });
 
   const onSubmit = async (data: RegisterSchemaType) => {
-    const response = await AuthService.register(data.fullName, data.email, data.password);
-    console.log(response);
+    await RegisterUser(data.fullName, data.email, data.password);
   };
 
   return {

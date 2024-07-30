@@ -25,8 +25,6 @@ export class AuthService {
 
       return data;
     } catch (error) {
-      console.log(error);
-
       throw new Error("Error al registrar el usuario");
     }
   }
